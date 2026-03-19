@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --burgundy: #802B3D;
+    --burgundy-dark: #5e1f2c;
+    --gold: #D4AF37;
+    --gold-light: #f0d060;
+    --cream: #FAF9F6;
+    --charcoal: #2D2D2D;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--cream);
+    color: var(--charcoal);
+    margin: 0;
+    padding: 0;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    background-color: var(--burgundy);
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease;
+    border: 2px solid var(--burgundy);
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+  }
+  .btn-primary:hover {
+    background-color: var(--burgundy-dark);
+    border-color: var(--burgundy-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(128,43,61,0.35);
+  }
+
+  .btn-gold {
+    background-color: var(--gold);
+    color: #1a1a1a;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease;
+    border: 2px solid var(--gold);
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+  }
+  .btn-gold:hover {
+    background-color: var(--gold-light);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(212,175,55,0.4);
+  }
+
+  .btn-outline {
+    background-color: transparent;
+    color: var(--burgundy);
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease;
+    border: 2px solid var(--burgundy);
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+  }
+  .btn-outline:hover {
+    background-color: var(--burgundy);
+    color: white;
+  }
+
+  .btn-outline-white {
+    background-color: transparent;
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease;
+    border: 2px solid white;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+  }
+  .btn-outline-white:hover {
+    background-color: white;
+    color: var(--burgundy);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--burgundy);
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    color: #6b6b6b;
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .card:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    transform: translateY(-4px);
+  }
+
+  .gold-star {
+    color: var(--gold);
+  }
+
+  .badge-gold {
+    background-color: var(--gold);
+    color: #1a1a1a;
+    padding: 0.2rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .badge-burgundy {
+    background-color: var(--burgundy);
+    color: white;
+    padding: 0.2rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .input-field {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #ddd;
+    border-radius: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+    background: white;
+    outline: none;
+  }
+  .input-field:focus {
+    border-color: var(--burgundy);
+    box-shadow: 0 0 0 3px rgba(128,43,61,0.1);
+  }
+
+  .nav-link {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: var(--charcoal);
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 0.25rem 0;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--burgundy);
+    transition: width 0.3s;
+  }
+  .nav-link:hover {
+    color: var(--burgundy);
+  }
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .hero-section {
+    background: linear-gradient(135deg, var(--burgundy-dark) 0%, var(--burgundy) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-banner {
+    background: linear-gradient(135deg, var(--burgundy-dark) 0%, var(--burgundy) 100%);
+    padding: 4rem 0 3rem;
+    text-align: center;
+  }
+
+  .footer-bg {
+    background-color: var(--burgundy-dark);
+  }
+}
