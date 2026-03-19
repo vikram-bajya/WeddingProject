@@ -49,10 +49,10 @@ export default function VendorDetailPage() {
 
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-sm text-gray-500">
-        <Link to="/" className="hover:text-amber-500">Home</Link> &gt;{' '}
-        <Link to="/vendors" className="hover:text-amber-500">Vendors</Link> &gt;{' '}
-        <Link to={`/vendors?category=${VENDOR_DATA.category}`} className="hover:text-amber-500">{VENDOR_DATA.category}s</Link> &gt;{' '}
-        <span style={{ color: '#802B3D', fontWeight: 500 }}>{VENDOR_DATA.name}</span>
+        <Link to="/" className="hover:text-[#3A8B95]">Home</Link> &gt;{' '}
+        <Link to="/vendors" className="hover:text-[#3A8B95]">Vendors</Link> &gt;{' '}
+        <Link to={`/vendors?category=${VENDOR_DATA.category}`} className="hover:text-[#3A8B95]">{VENDOR_DATA.category}s</Link> &gt;{' '}
+        <span style={{ color: '#FF3E9B', fontWeight: 500 }}>{VENDOR_DATA.name}</span>
       </div>
 
       {/* Photo Gallery */}
@@ -89,13 +89,13 @@ export default function VendorDetailPage() {
           <div className="lg:col-span-7 xl:col-span-8">
             <div className="mb-6">
               <span className="badge-gold mb-3 inline-block">{VENDOR_DATA.category}</span>
-              <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: '2.5rem', fontWeight: 700, color: '#802B3D', marginBottom: '0.5rem' }}>
+              <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: '2.5rem', fontWeight: 700, color: '#FF3E9B', marginBottom: '0.5rem' }}>
                 {VENDOR_DATA.name}
               </h1>
               
               <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mb-4 text-sm text-gray-600">
                 <div className="flex items-center gap-1 font-semibold">
-                  <span className="text-amber-400 text-lg">★</span>
+                  <span className="text-[#66D0BC] text-lg">★</span>
                   <span className="text-gray-900">{VENDOR_DATA.rating}</span>
                   <span className="font-normal">({VENDOR_DATA.reviews} Reviews)</span>
                 </div>
@@ -105,7 +105,7 @@ export default function VendorDetailPage() {
                 </div>
                 <div className="flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
-                  <MapPin size={16} style={{ color: '#802B3D' }} />
+                  <MapPin size={16} style={{ color: '#FF3E9B' }} />
                   <span>{VENDOR_DATA.location}</span>
                 </div>
               </div>
@@ -117,17 +117,17 @@ export default function VendorDetailPage() {
 
             {/* Packages */}
             <div className="mb-10">
-              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.8rem', color: '#802B3D', fontWeight: 700, mb: '1.5rem' }}>Our Packages</h2>
+              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.8rem', color: '#FF3E9B', fontWeight: 700, mb: '1.5rem' }}>Our Packages</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
                 {VENDOR_DATA.packages.map((pkg, i) => (
-                  <div key={i} className={`card p-6 border-2 ${i === 1 ? 'border-amber-400 relative' : 'border-transparent'}`}>
-                    {i === 1 && <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-400 text-xs font-bold px-3 py-1 rounded-full">MOST POPULAR</span>}
-                    <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.2rem', color: '#D4AF37', fontWeight: 700, mb: '0.25rem' }}>{pkg.name}</h3>
-                    <p style={{ color: '#802B3D', fontSize: '1.4rem', fontWeight: 700, mb: '1rem' }}>{pkg.price}</p>
+                  <div key={i} className={`card p-6 border-2 ${i === 1 ? 'border-[#66D0BC] relative' : 'border-transparent'}`}>
+                    {i === 1 && <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#66D0BC] text-xs font-bold px-3 py-1 rounded-full">MOST POPULAR</span>}
+                    <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.2rem', color: '#66D0BC', fontWeight: 700, mb: '0.25rem' }}>{pkg.name}</h3>
+                    <p style={{ color: '#FF3E9B', fontSize: '1.4rem', fontWeight: 700, mb: '1rem' }}>{pkg.price}</p>
                     <ul className="space-y-3 mb-6 mt-4">
                       {pkg.features.map((f, j) => (
                         <li key={j} className="flex items-start gap-2 text-sm text-gray-600">
-                          <CheckCircle size={16} className="text-amber-500 shrink-0 mt-0.5" />
+                          <CheckCircle size={16} className="text-[#3A8B95] shrink-0 mt-0.5" />
                           <span>{f}</span>
                         </li>
                       ))}
@@ -144,7 +144,7 @@ export default function VendorDetailPage() {
           <aside className="lg:col-span-5 xl:col-span-4">
             <div className="sticky top-24">
               <div className="card p-6 border border-gray-100">
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.5rem', color: '#802B3D', fontWeight: 700, mb: '1rem', textAlign: 'center' }}>
+                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.5rem', color: '#FF3E9B', fontWeight: 700, mb: '1rem', textAlign: 'center' }}>
                   Enquire About This Vendor
                 </h3>
                 <p className="text-center text-sm text-gray-500 mb-6">Fill in your details and Sharma Wedding Photography will contact you.</p>
@@ -190,7 +190,7 @@ export default function VendorDetailPage() {
                 </div>
 
                 <div className="space-y-3">
-                  <a href="tel:+919876543210" className="flex items-center justify-center gap-2 w-full py-3 rounded-lg border-2 border-amber-400 text-amber-600 font-bold hover:bg-amber-50 transition-colors">
+                  <a href="tel:+919876543210" className="flex items-center justify-center gap-2 w-full py-3 rounded-lg border-2 border-[#66D0BC] text-amber-600 font-bold hover:bg-amber-50 transition-colors">
                     <Phone size={18} /> Call Now: +91 98765 43210
                   </a>
                   <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-[#25D366] text-white font-bold hover:bg-[#20bd5a] transition-colors shadow-lg shadow-[#25D366]/30">

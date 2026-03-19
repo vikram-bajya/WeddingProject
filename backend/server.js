@@ -2,10 +2,57 @@ const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
+const session = require('express-session');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 
 dotenv.config();
 
 const app = express();
+
+// Session config
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'weddingbliss_secret_fallback',
+  resave: false,
+  saveUninitialized: false,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Passport serialization
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+passport.deserializeUser((obj, done) => {
+  done(null, obj);
+});
+
+// Configure Google Strategy
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID || 'GOOGLE_CLIENT_ID_PLACEHOLDER',
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'GOOGLE_CLIENT_SECRET_PLACEHOLDER',
+    callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:5000/auth/google/callback'
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    // In a real app, find or create user in DB
+    return cb(null, profile);
+  }
+));
+
+// Configure Facebook Strategy
+passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_APP_ID || 'FACEBOOK_APP_ID_PLACEHOLDER',
+    clientSecret: process.env.FACEBOOK_APP_SECRET || 'FACEBOOK_APP_SECRET_PLACEHOLDER',
+    callbackURL: process.env.FACEBOOK_CALLBACK_URL || 'http://localhost:5000/auth/facebook/callback',
+    profileFields: ['id', 'displayName', 'emails']
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    // In a real app, find or create user in DB
+    return cb(null, profile);
+  }
+));
 app.use(cors());
 app.use(express.json());
 
@@ -19,7 +66,29 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'WeddingBliss API is running' });
 });
 
-// --- ROUTES ---
+// --- OAUTH ROUTES ---
+
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: 'http://localhost:5173/login?error=true' }),
+  function(req, res) {
+    // Successful authentication, redirect to frontend dashboard
+    res.redirect('http://localhost:5173/dashboard');
+  });
+
+app.get('/auth/facebook',
+  passport.authenticate('facebook', { scope: ['email'] }));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: 'http://localhost:5173/login?error=true' }),
+  function(req, res) {
+    // Successful authentication, redirect to frontend dashboard
+    res.redirect('http://localhost:5173/dashboard');
+  });
+
+// --- API ROUTES ---
 
 // 1. Get all categories
 app.get('/api/categories', async (req, res) => {

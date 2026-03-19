@@ -3,11 +3,11 @@
 
 @layer base {
   :root {
-    --burgundy: #802B3D;
-    --burgundy-dark: #5e1f2c;
-    --gold: #D4AF37;
+    --burgundy: #FF3E9B;
+    --burgundy-dark: #3A8B95;
+    --gold: #66D0BC;
     --gold-light: #f0d060;
-    --cream: #FAF9F6;
+    --cream: #FFF7FA;
     --charcoal: #2D2D2D;
   }
 
@@ -132,10 +132,6 @@
     overflow: hidden;
     transition: all 0.3s ease;
   }
-  .card:hover {
-    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-    transform: translateY(-4px);
-  }
 
   .gold-star {
     color: var(--gold);
@@ -217,4 +213,64 @@
   .footer-bg {
     background-color: var(--burgundy-dark);
   }
+
+  /* 3D Animations & Perspectives */
+  body {
+    perspective: 1500px;
+  }
+  
+  .card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(58, 139, 149, 0.08); /* Sapphire shadow */
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0);
+  }
+
+  .card:hover {
+    box-shadow: 0 20px 40px rgba(255, 62, 155, 0.15); /* Navy shadow */
+    transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) scale3d(1.02, 1.02, 1.02) translateZ(10px);
+    z-index: 10;
+  }
+  
+  .btn-primary, .btn-gold, .btn-outline {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-primary::after, .btn-gold::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    bottom: -50%;
+    width: 20px;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.4);
+    transform: skewX(-20deg) translateX(-150px);
+    animation: premium-shine 3.5s cubic-bezier(0.19, 1, 0.22, 1) infinite;
+  }
+
+  @keyframes premium-shine {
+    0% {
+      transform: skewX(-20deg) translateX(-250px);
+    }
+    30% {
+      transform: skewX(-20deg) translateX(500px);
+    }
+    100% {
+      transform: skewX(-20deg) translateX(500px);
+    }
+  }
+
+  .btn-primary:hover, .btn-gold:hover, .btn-outline:hover {
+    transform: translateY(-3px) scale(1.03) translateZ(5px);
+    box-shadow: 0 10px 20px rgba(255, 62, 155, 0.2);
+  }
 }
+

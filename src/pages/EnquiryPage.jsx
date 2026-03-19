@@ -39,13 +39,13 @@ export default function EnquiryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF9F6]">
+    <div className="min-h-screen bg-[#FFF7FA]">
       <Header />
 
       {/* Hero Banner */}
-      <div className="relative py-20 px-4 text-center text-white" style={{ background: 'linear-gradient(135deg, #5e1f2c, #802B3D)' }}>
+      <div className="relative py-20 px-4 text-center text-white" style={{ background: 'linear-gradient(135deg, #3A8B95, #FF3E9B)' }}>
         <div className="absolute inset-0 opacity-10" style={{
-          backgroundImage: 'radial-gradient(circle at 20% 80%, #D4AF37 1px, transparent 1px), radial-gradient(circle at 80% 20%, #D4AF37 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle at 20% 80%, #66D0BC 1px, transparent 1px), radial-gradient(circle at 80% 20%, #66D0BC 1px, transparent 1px)',
           backgroundSize: '60px 60px'
         }} />
         <div className="relative z-10 max-w-3xl mx-auto">
@@ -63,11 +63,11 @@ export default function EnquiryPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 -mt-10 relative z-20">
         
         {submitted ? (
-          <div className="card p-12 text-center bg-white border-t-4 border-[#D4AF37]">
+          <div className="card p-12 text-center bg-white border-t-4 border-[#66D0BC]">
             <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle size={40} className="text-green-500" />
             </div>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '2.5rem', color: '#802B3D', fontWeight: 700, marginBottom: '1rem' }}>
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '2.5rem', color: '#FF3E9B', fontWeight: 700, marginBottom: '1rem' }}>
               Enquiry Received!
             </h2>
             <p className="text-gray-600 text-lg mb-8 max-w-lg mx-auto">
@@ -83,10 +83,10 @@ export default function EnquiryPage() {
             {/* Progress Bar */}
             <div className="flex items-center justify-between mb-12 relative">
               <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-gray-100 -z-10"></div>
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-[#802B3D] -z-10 transition-all duration-500" style={{ width: step === 1 ? '50%' : '100%' }}></div>
+              <div className="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-[#FF3E9B] -z-10 transition-all duration-500" style={{ width: step === 1 ? '50%' : '100%' }}></div>
               
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-4 ${step >= 1 ? 'bg-[#802B3D] text-white border-white shadow-md' : 'bg-gray-200 text-gray-500 border-white'}`}>1</div>
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-4 ${step === 2 ? 'bg-[#802B3D] text-white border-white shadow-md' : 'bg-gray-200 text-gray-500 border-white'}`}>2</div>
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-4 ${step >= 1 ? 'bg-[#FF3E9B] text-white border-white shadow-md' : 'bg-gray-200 text-gray-500 border-white'}`}>1</div>
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-4 ${step === 2 ? 'bg-[#FF3E9B] text-white border-white shadow-md' : 'bg-gray-200 text-gray-500 border-white'}`}>2</div>
             </div>
 
             <form onSubmit={step === 1 ? handleNext : handleSubmit}>
@@ -180,10 +180,10 @@ export default function EnquiryPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
                     {SERVICES.map(srv => (
                       <label key={srv} className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
-                        formData.services.includes(srv) ? 'border-[#802B3D] bg-rose-50/50' : 'border-gray-200 hover:border-[#D4AF37]'
+                        formData.services.includes(srv) ? 'border-[#FF3E9B] bg-[#FF3E9B]/10/50' : 'border-gray-200 hover:border-[#66D0BC]'
                       }`}>
                         <div className={`w-5 h-5 rounded flex items-center justify-center border ${
-                          formData.services.includes(srv) ? 'bg-[#802B3D] border-[#802B3D] text-white' : 'border-gray-300'
+                          formData.services.includes(srv) ? 'bg-[#FF3E9B] border-[#FF3E9B] text-white' : 'border-gray-300'
                         }`}>
                           {formData.services.includes(srv) && <CheckCircle size={14} />}
                         </div>

@@ -70,7 +70,7 @@ function StarRating({ rating }) {
   return (
     <div className="flex items-center gap-1">
       {[1,2,3,4,5].map(i => (
-        <span key={i} className={i <= Math.round(rating) ? 'text-amber-400' : 'text-gray-300'} style={{ fontSize: '1rem' }}>★</span>
+        <span key={i} className={i <= Math.round(rating) ? 'text-[#66D0BC]' : 'text-gray-300'} style={{ fontSize: '1rem' }}>★</span>
       ))}
     </div>
   )
@@ -85,7 +85,7 @@ export default function HomePage() {
       <section
         className="relative py-32 px-4 text-center text-white"
         style={{
-          background: 'linear-gradient(135deg, #5e1f2c 0%, #802B3D 60%, #9a3550 100%)',
+          background: 'linear-gradient(135deg, #3A8B95 0%, #FF3E9B 60%, #9a3550 100%)',
           minHeight: '85vh',
           display: 'flex',
           alignItems: 'center',
@@ -93,7 +93,7 @@ export default function HomePage() {
       >
         {/* Decorative overlay pattern */}
         <div className="absolute inset-0 opacity-10" style={{
-          backgroundImage: 'radial-gradient(circle at 20% 80%, #D4AF37 1px, transparent 1px), radial-gradient(circle at 80% 20%, #D4AF37 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle at 20% 80%, #66D0BC 1px, transparent 1px), radial-gradient(circle at 80% 20%, #66D0BC 1px, transparent 1px)',
           backgroundSize: '60px 60px'
         }} />
 
@@ -103,7 +103,7 @@ export default function HomePage() {
           </div>
           <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(2.5rem,5vw,4rem)', fontWeight: 700, lineHeight: 1.15, marginBottom: '1.5rem' }}>
             Find Your Perfect<br />
-            <span style={{ color: '#D4AF37' }}>Wedding Vendors</span>
+            <span style={{ color: '#66D0BC' }}>Wedding Vendors</span>
           </h1>
           <p style={{ fontSize: '1.15rem', color: '#f0e6e9', maxWidth: '600px', margin: '0 auto 2.5rem', lineHeight: 1.7 }}>
             Discover top-rated photographers, venues, caterers & more for your dream day. 10,000+ couples trust WeddingBliss.
@@ -131,7 +131,7 @@ export default function HomePage() {
           <div className="flex flex-wrap justify-center gap-8 mt-10 text-sm">
             {[['10,000+', 'Happy Couples'], ['5,000+', 'Verified Vendors'], ['50+', 'Cities'], ['4.9★', 'Avg Rating']].map(([val, label]) => (
               <div key={label} className="text-center">
-                <div style={{ color: '#D4AF37', fontSize: '1.4rem', fontWeight: 700 }}>{val}</div>
+                <div style={{ color: '#66D0BC', fontSize: '1.4rem', fontWeight: 700 }}>{val}</div>
                 <div style={{ color: '#f0e6e9', fontSize: '0.8rem' }}>{label}</div>
               </div>
             ))}
@@ -140,7 +140,7 @@ export default function HomePage() {
       </section>
 
       {/* SERVICES / CATEGORIES */}
-      <section id="services" className="py-20 px-4" style={{ backgroundColor: '#FAF9F6' }}>
+      <section id="services" className="py-20 px-4" style={{ backgroundColor: '#FFF7FA' }}>
         <div className="max-w-6xl mx-auto">
           <h2 className="section-title">Browse by Category</h2>
           <p className="section-subtitle">Find the perfect vendor type for your wedding</p>
@@ -149,13 +149,13 @@ export default function HomePage() {
               <Link
                 key={cat.name}
                 to={`/vendors?category=${cat.name}`}
-                className="card text-center p-6 cursor-pointer group border-2 border-transparent hover:border-amber-400 no-underline"
+                className="card text-center p-6 cursor-pointer group border-2 border-transparent hover:border-[#66D0BC] no-underline"
               >
                 <div style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>{cat.icon}</div>
                 <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '0.95rem', fontWeight: 700, color: '#2D2D2D', marginBottom: '0.25rem' }}>
                   {cat.name}
                 </h3>
-                <p style={{ fontSize: '0.75rem', color: '#802B3D', fontWeight: 600 }}>{cat.count} Vendors</p>
+                <p style={{ fontSize: '0.75rem', color: '#FF3E9B', fontWeight: 600 }}>{cat.count} Vendors</p>
               </Link>
             ))}
           </div>
@@ -188,10 +188,10 @@ export default function HomePage() {
                     <span className="text-sm text-gray-500">{vendor.rating} ({vendor.reviews} reviews)</span>
                   </div>
                   <div className="flex items-center gap-1 text-sm text-gray-500 mb-2">
-                    <MapPin size={14} style={{ color: '#802B3D' }} />
+                    <MapPin size={14} style={{ color: '#FF3E9B' }} />
                     <span>{vendor.location}</span>
                   </div>
-                  <p style={{ color: '#802B3D', fontWeight: 700, fontSize: '0.9rem', marginBottom: '1rem' }}>{vendor.price}</p>
+                  <p style={{ color: '#FF3E9B', fontWeight: 700, fontSize: '0.9rem', marginBottom: '1rem' }}>{vendor.price}</p>
                   <Link to={`/vendors/${vendor.id}`} className="btn-primary w-full text-center text-sm py-2 block">View Details</Link>
                 </div>
               </div>
@@ -206,7 +206,7 @@ export default function HomePage() {
       </section>
 
       {/* PRICING PLANS */}
-      <section className="py-20 px-4" style={{ backgroundColor: '#FAF9F6' }}>
+      <section className="py-20 px-4" style={{ backgroundColor: '#FFF7FA' }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <span className="badge-gold mb-4 inline-block tracking-widest uppercase">Planning Packages</span>
@@ -217,27 +217,27 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Basic Plan */}
             <div className="card p-8 flex flex-col bg-white border border-gray-100 relative group overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gray-200 group-hover:bg-[#D4AF37] transition-colors duration-300"></div>
+              <div className="absolute top-0 left-0 w-full h-1 bg-gray-200 group-hover:bg-[#66D0BC] transition-colors duration-300"></div>
               <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.5rem', fontWeight: 700, color: '#2D2D2D', marginBottom: '0.5rem' }}>Essential</h3>
               <p className="text-gray-500 text-sm mb-6">Perfect for intimate celebrations</p>
               <div className="mb-8">
-                <span className="text-4xl font-bold" style={{ color: '#802B3D' }}>₹50,000</span>
+                <span className="text-4xl font-bold" style={{ color: '#FF3E9B' }}>₹50,000</span>
                 <span className="text-gray-500">/wedding</span>
               </div>
               <ul className="space-y-4 mb-8 flex-1">
                 {['Dedicated Virtual Planner', 'Up to 3 Vendor Bookings', 'Basic Budget Management', 'Email Support'].map((feature, i) => (
                   <li key={i} className="flex items-center gap-3 text-sm text-gray-700">
-                    <CheckCircle size={16} className="text-[#D4AF37]" /> {feature}
+                    <CheckCircle size={16} className="text-[#66D0BC]" /> {feature}
                   </li>
                 ))}
               </ul>
-              <Link to="/enquiry" className="btn-outline w-full text-center py-3 group-hover:bg-[#802B3D] group-hover:text-white transition-all duration-300">Book Essential</Link>
+              <Link to="/enquiry" className="btn-outline w-full text-center py-3 group-hover:bg-[#FF3E9B] group-hover:text-white transition-all duration-300">Book Essential</Link>
             </div>
 
             {/* Premium Plan - Highlighted */}
-            <div className="card p-8 flex flex-col bg-[#802B3D] text-white shadow-2xl relative group transform md:-translate-y-4 hover:-translate-y-6 transition-transform duration-500">
+            <div className="card p-8 flex flex-col bg-[#FF3E9B] text-white shadow-2xl relative group transform md:-translate-y-4 hover:-translate-y-6 transition-transform duration-500">
               <div className="absolute top-4 right-4 animate-pulse">
-                <span className="bg-[#D4AF37] text-[#1a1a1a] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</span>
+                <span className="bg-[#66D0BC] text-[#1a1a1a] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</span>
               </div>
               <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.5rem', fontWeight: 700, marginBottom: '0.5rem' }}>Premium</h3>
               <p className="text-[#f0e6e9] text-sm mb-6">The complete planning experience</p>
@@ -248,7 +248,7 @@ export default function HomePage() {
               <ul className="space-y-4 mb-8 flex-1">
                 {['Dedicated On-site Coordinator', 'Unlimited Vendor Bookings', 'Advanced Budget & RSVP Tool', 'Theme & Decor Styling', '24/7 Priority Support'].map((feature, i) => (
                   <li key={i} className="flex items-center gap-3 text-sm text-[#f0e6e9]">
-                    <CheckCircle size={16} className="text-[#D4AF37]" /> {feature}
+                    <CheckCircle size={16} className="text-[#66D0BC]" /> {feature}
                   </li>
                 ))}
               </ul>
@@ -257,21 +257,21 @@ export default function HomePage() {
 
             {/* Luxury Plan */}
             <div className="card p-8 flex flex-col bg-white border border-gray-100 relative group overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gray-200 group-hover:bg-[#D4AF37] transition-colors duration-300"></div>
+              <div className="absolute top-0 left-0 w-full h-1 bg-gray-200 group-hover:bg-[#66D0BC] transition-colors duration-300"></div>
               <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.5rem', fontWeight: 700, color: '#2D2D2D', marginBottom: '0.5rem' }}>Luxury</h3>
               <p className="text-gray-500 text-sm mb-6">Bespoke destination weddings</p>
               <div className="mb-8">
-                <span className="text-4xl font-bold" style={{ color: '#802B3D' }}>Custom</span>
+                <span className="text-4xl font-bold" style={{ color: '#FF3E9B' }}>Custom</span>
                 <span className="text-gray-500">/pricing</span>
               </div>
               <ul className="space-y-4 mb-8 flex-1">
                 {['Full Execution & Management', 'Celebrity Artist Bookings', 'Destination Scouting', 'Hospitality & Logistics', 'Post-Wedding Services'].map((feature, i) => (
                   <li key={i} className="flex items-center gap-3 text-sm text-gray-700">
-                    <CheckCircle size={16} className="text-[#D4AF37]" /> {feature}
+                    <CheckCircle size={16} className="text-[#66D0BC]" /> {feature}
                   </li>
                 ))}
               </ul>
-              <Link to="/enquiry" className="btn-outline w-full text-center py-3 group-hover:bg-[#802B3D] group-hover:text-white transition-all duration-300">Contact Us</Link>
+              <Link to="/enquiry" className="btn-outline w-full text-center py-3 group-hover:bg-[#FF3E9B] group-hover:text-white transition-all duration-300">Contact Us</Link>
             </div>
           </div>
         </div>
@@ -289,11 +289,11 @@ export default function HomePage() {
               { num: '03', icon: '💍', title: 'Book & Celebrate', desc: 'Send enquiries, confirm bookings, and enjoy your dream wedding with confidence and ease.' },
             ].map(step => (
               <div key={step.num} className="text-center p-8 card relative">
-                <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 text-xl" style={{ backgroundColor: '#D4AF37', color: '#1a1a1a', fontWeight: 800, fontFamily: "'Playfair Display', serif" }}>
+                <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 text-xl" style={{ backgroundColor: '#66D0BC', color: '#1a1a1a', fontWeight: 800, fontFamily: "'Playfair Display', serif" }}>
                   {step.num}
                 </div>
                 <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{step.icon}</div>
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.2rem', color: '#802B3D', fontWeight: 700, marginBottom: '0.75rem' }}>{step.title}</h3>
+                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.2rem', color: '#FF3E9B', fontWeight: 700, marginBottom: '0.75rem' }}>{step.title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{step.desc}</p>
               </div>
             ))}
@@ -310,14 +310,14 @@ export default function HomePage() {
             {TESTIMONIALS.map((t, i) => (
               <div key={i} className="card p-8">
                 <div className="flex items-center gap-3 mb-4">
-                  {[1,2,3,4,5].map(s => <span key={s} style={{ color: '#D4AF37', fontSize: '1.1rem' }}>★</span>)}
+                  {[1,2,3,4,5].map(s => <span key={s} style={{ color: '#66D0BC', fontSize: '1.1rem' }}>★</span>)}
                 </div>
                 <p className="text-gray-600 italic text-sm leading-relaxed mb-6">"{t.review}"</p>
                 <div className="flex items-center gap-3">
                   <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full object-cover" />
                   <div>
                     <p style={{ fontWeight: 700, fontSize: '0.9rem', color: '#2D2D2D', fontFamily: "'Playfair Display', serif" }}>{t.name}</p>
-                    <p style={{ fontSize: '0.75rem', color: '#802B3D' }}>{t.date}</p>
+                    <p style={{ fontSize: '0.75rem', color: '#FF3E9B' }}>{t.date}</p>
                   </div>
                 </div>
               </div>
@@ -327,13 +327,13 @@ export default function HomePage() {
       </section>
 
       {/* MAP / CONTACT AREA */}
-      <section id="contact-map" className="py-10 px-4" style={{ backgroundColor: '#FAF9F6' }}>
+      <section id="contact-map" className="py-10 px-4" style={{ backgroundColor: '#FFF7FA' }}>
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-8 items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
           <div className="flex-1 text-center md:text-left md:pl-8">
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '2rem', fontWeight: 700, color: '#802B3D', marginBottom: '0.5rem' }}>Come Visit Us</h2>
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '2rem', fontWeight: 700, color: '#FF3E9B', marginBottom: '0.5rem' }}>Come Visit Us</h2>
             <p className="text-gray-500 mb-6">We'd love to meet you and discuss your dream wedding in person.</p>
             <div className="flex items-start gap-4 mb-4 justify-center md:justify-start text-gray-700">
-              <MapPin size={24} className="text-amber-500 flex-shrink-0" />
+              <MapPin size={24} className="text-[#3A8B95] flex-shrink-0" />
               <div className="text-sm">
                 <strong>WeddingBliss HQ</strong><br />
                 123 Wedding Lane, Bandra West<br />
@@ -352,7 +352,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA Banner */}
-      <section className="py-20 px-4 text-white text-center" style={{ background: 'linear-gradient(135deg, #5e1f2c, #802B3D)' }}>
+      <section className="py-20 px-4 text-white text-center" style={{ background: 'linear-gradient(135deg, #3A8B95, #FF3E9B)' }}>
         <div className="max-w-3xl mx-auto">
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem' }}>
             Ready to Plan Your Dream Wedding?

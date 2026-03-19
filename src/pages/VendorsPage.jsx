@@ -24,7 +24,7 @@ function StarRating({ rating }) {
   return (
     <div className="flex items-center gap-0.5">
       {[1,2,3,4,5].map(i => (
-        <span key={i} style={{ color: i <= Math.round(rating) ? '#D4AF37' : '#ddd', fontSize: '0.9rem' }}>★</span>
+        <span key={i} style={{ color: i <= Math.round(rating) ? '#66D0BC' : '#ddd', fontSize: '0.9rem' }}>★</span>
       ))}
     </div>
   )
@@ -87,13 +87,13 @@ export default function VendorsPage() {
   const currentItems = filtered.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#FAF9F6' }}>
+    <div className="min-h-screen" style={{ backgroundColor: '#FFF7FA' }}>
       <Header />
 
       {/* Page Banner */}
       <div className="page-banner">
         <p style={{ color: '#f0e6e9', fontSize: '0.85rem', marginBottom: '0.5rem' }}>
-          <Link to="/" className="hover:text-amber-400" style={{ color: '#D4AF37' }}>Home</Link> &gt; Vendors
+          <Link to="/" className="hover:text-[#66D0BC]" style={{ color: '#66D0BC' }}>Home</Link> &gt; Vendors
         </p>
         <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: '2.5rem', color: 'white', fontWeight: 700 }}>
           Browse Wedding Vendors
@@ -106,7 +106,7 @@ export default function VendorsPage() {
       {/* Search Bar */}
       <div className="bg-white shadow-sm py-4 px-4 sticky top-16 z-30">
         <div className="max-w-7xl mx-auto flex flex-wrap gap-3 items-center">
-          <div className="flex-1 min-w-[200px] flex items-center border-2 border-gray-200 rounded-lg px-3 py-2 focus-within:border-rose-800 bg-white gap-2">
+          <div className="flex-1 min-w-[200px] flex items-center border-2 border-gray-200 rounded-lg px-3 py-2 focus-within:border-[#FF3E9B] bg-white gap-2">
             <Search size={16} className="text-gray-400" />
             <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search by vendor name or city..." className="outline-none text-sm w-full" />
           </div>
@@ -121,15 +121,15 @@ export default function VendorsPage() {
           <aside className="w-full lg:w-64 flex-shrink-0">
             <div className="card p-6 sticky top-36">
               <div className="flex items-center gap-2 mb-6">
-                <SlidersHorizontal size={18} style={{ color: '#802B3D' }} />
-                <h3 style={{ fontFamily: "'Playfair Display', serif", color: '#802B3D', fontWeight: 700, fontSize: '1.1rem' }}>Filter Results</h3>
+                <SlidersHorizontal size={18} style={{ color: '#FF3E9B' }} />
+                <h3 style={{ fontFamily: "'Playfair Display', serif", color: '#FF3E9B', fontWeight: 700, fontSize: '1.1rem' }}>Filter Results</h3>
               </div>
 
               {/* Saved/Favorites */}
               <div className="mb-6 border-b border-gray-100 pb-4">
-                <label className="flex items-center gap-2 cursor-pointer text-sm font-semibold text-[#802B3D]">
+                <label className="flex items-center gap-2 cursor-pointer text-sm font-semibold text-[#FF3E9B]">
                   <input type="checkbox" checked={showFavorites} onChange={(e) => setShowFavorites(e.target.checked)} className="accent-rose-800" />
-                  <Heart size={16} className={showFavorites ? "fill-rose-800" : ""} /> Show Favorites Only
+                  <Heart size={16} className={showFavorites ? "fill-[#FF3E9B]" : ""} /> Show Favorites Only
                 </label>
               </div>
 
@@ -137,7 +137,7 @@ export default function VendorsPage() {
               <div className="mb-6">
                 <h4 className="font-semibold text-sm text-gray-700 mb-3">Category</h4>
                 {CATEGORIES.map(cat => (
-                  <label key={cat} className="flex items-center gap-2 mb-2 cursor-pointer text-sm text-gray-600 hover:text-rose-800">
+                  <label key={cat} className="flex items-center gap-2 mb-2 cursor-pointer text-sm text-gray-600 hover:text-[#FF3E9B]">
                     <input type="radio" checked={selectedCategory === cat} onChange={() => setSelectedCategory(cat)} className="accent-rose-800" />
                     {cat}
                   </label>
@@ -148,7 +148,7 @@ export default function VendorsPage() {
               <div className="mb-6">
                 <h4 className="font-semibold text-sm text-gray-700 mb-3">Minimum Rating</h4>
                 {RATINGS.map(r => (
-                  <label key={r} className="flex items-center gap-2 mb-2 cursor-pointer text-sm text-gray-600 hover:text-rose-800">
+                  <label key={r} className="flex items-center gap-2 mb-2 cursor-pointer text-sm text-gray-600 hover:text-[#FF3E9B]">
                     <input type="radio" name="rating" value={r} checked={selectedRating === r} onChange={() => setSelectedRating(r)} className="accent-rose-800" />
                     {r}
                   </label>
@@ -159,7 +159,7 @@ export default function VendorsPage() {
               <div className="mb-6">
                 <h4 className="font-semibold text-sm text-gray-700 mb-3">City</h4>
                 {CITIES.map(city => (
-                  <label key={city} className="flex items-center gap-2 mb-2 cursor-pointer text-sm text-gray-600 hover:text-rose-800">
+                  <label key={city} className="flex items-center gap-2 mb-2 cursor-pointer text-sm text-gray-600 hover:text-[#FF3E9B]">
                     <input type="checkbox" checked={selectedCities.includes(city)} onChange={() => toggleCity(city)} className="accent-rose-800" />
                     {city}
                   </label>
@@ -168,7 +168,7 @@ export default function VendorsPage() {
 
               <button onClick={applyFilters} className="btn-primary w-full text-sm py-2 text-center">Apply Filters</button>
               <button onClick={clearFilters}
-                className="w-full text-center text-sm mt-3" style={{ color: '#802B3D', textDecoration: 'underline', cursor: 'pointer', background: 'none', border: 'none' }}>
+                className="w-full text-center text-sm mt-3" style={{ color: '#FF3E9B', textDecoration: 'underline', cursor: 'pointer', background: 'none', border: 'none' }}>
                 Clear All
               </button>
             </div>
@@ -179,7 +179,7 @@ export default function VendorsPage() {
             <div className="flex items-center justify-between mb-6">
               <p className="text-gray-600 text-sm">Showing <strong>{filtered.length}</strong> vendors</p>
               <select value={sort} onChange={e => setSort(e.target.value)}
-                className="border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white cursor-pointer hover:border-rose-800">
+                className="border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white cursor-pointer hover:border-[#FF3E9B]">
                 {['Relevance', 'Rating: High to Low', 'Price: Low to High', 'Most Reviewed'].map(o => <option key={o}>{o}</option>)}
               </select>
             </div>
@@ -201,7 +201,7 @@ export default function VendorsPage() {
                       </div>
                       <button onClick={() => toggleFav(vendor.id)}
                         className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center hover:scale-110 transition-transform shadow-sm">
-                        <Heart size={16} className={favorites.includes(vendor.id) ? 'fill-rose-500 text-rose-500' : 'text-gray-400'} />
+                        <Heart size={16} className={favorites.includes(vendor.id) ? 'fill-[#FF3E9B] text-[#FF3E9B]' : 'text-gray-400'} />
                       </button>
                     </div>
                     <div className="p-5 flex flex-col flex-grow">
@@ -213,10 +213,10 @@ export default function VendorsPage() {
                         <span className="text-xs font-medium text-gray-500">{vendor.rating} ({vendor.reviews})</span>
                       </div>
                       <div className="flex items-center gap-1.5 text-xs text-gray-600 mb-3">
-                        <MapPin size={14} style={{ color: '#802B3D' }} />{vendor.location}
+                        <MapPin size={14} style={{ color: '#FF3E9B' }} />{vendor.location}
                       </div>
                       <div className="mt-auto pt-4 border-t border-gray-100">
-                        <p style={{ color: '#802B3D', fontWeight: 700, fontSize: '0.95rem', marginBottom: '1rem' }}>{vendor.price}</p>
+                        <p style={{ color: '#FF3E9B', fontWeight: 700, fontSize: '0.95rem', marginBottom: '1rem' }}>{vendor.price}</p>
                         <Link to={`/vendors/${vendor.id}`} className="btn-primary w-full text-center text-sm py-2.5 block rounded-md">View Details</Link>
                       </div>
                     </div>
@@ -231,7 +231,7 @@ export default function VendorsPage() {
                 <button 
                   onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className="px-3 py-1.5 rounded text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed hover:bg-rose-50 text-rose-900 border border-transparent hover:border-rose-200"
+                  className="px-3 py-1.5 rounded text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#FF3E9B]/10 text-[#3A8B95] border border-transparent hover:border-rose-200"
                 >
                   Prev
                 </button>
@@ -241,7 +241,7 @@ export default function VendorsPage() {
                     key={page} 
                     onClick={() => setCurrentPage(page)}
                     className={`w-9 h-9 rounded-lg text-sm font-semibold transition-colors ${currentPage === page ? 'text-white shadow-md' : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'}`}
-                    style={currentPage === page ? { backgroundColor: '#802B3D' } : {}}
+                    style={currentPage === page ? { backgroundColor: '#FF3E9B' } : {}}
                   >
                     {page}
                   </button>
@@ -250,7 +250,7 @@ export default function VendorsPage() {
                 <button 
                   onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className="px-3 py-1.5 rounded text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed hover:bg-rose-50 text-rose-900 border border-transparent hover:border-rose-200"
+                  className="px-3 py-1.5 rounded text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#FF3E9B]/10 text-[#3A8B95] border border-transparent hover:border-rose-200"
                 >
                   Next
                 </button>

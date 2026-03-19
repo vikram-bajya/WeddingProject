@@ -20,8 +20,8 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 no-underline">
-            <Heart className="text-amber-500 fill-amber-400" size={24} />
-            <span style={{ fontFamily: "'Playfair Display', serif", color: '#D4AF37', fontSize: '1.4rem', fontWeight: 700 }}>
+            <Heart className="text-[#3A8B95] fill-[#66D0BC]" size={24} />
+            <span style={{ fontFamily: "'Playfair Display', serif", color: '#66D0BC', fontSize: '1.4rem', fontWeight: 700 }}>
               WeddingBliss
             </span>
           </Link>
@@ -40,7 +40,7 @@ export default function Header() {
           </div>
 
           {/* Mobile Hamburger */}
-          <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)} style={{ color: '#802B3D' }}>
+          <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)} style={{ color: '#FF3E9B' }}>
             {menuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>

@@ -14,13 +14,13 @@ export default function ContactPage() {
   const [openFaq, setOpenFaq] = useState(0)
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#FAF9F6' }}>
+    <div className="min-h-screen" style={{ backgroundColor: '#FFF7FA' }}>
       <Header />
 
       {/* Hero */}
       <div className="page-banner">
         <p style={{ color: '#f0e6e9', fontSize: '0.85rem', marginBottom: '0.5rem' }}>
-          <a href="/" className="hover:text-amber-400" style={{ color: '#D4AF37' }}>Home</a> &gt; Contact
+          <a href="/" className="hover:text-[#66D0BC]" style={{ color: '#66D0BC' }}>Home</a> &gt; Contact
         </p>
         <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: '3rem', color: 'white', fontWeight: 700 }}>
           Contact Us
@@ -35,15 +35,15 @@ export default function ContactPage() {
         {/* Info Strips - Negative Margin to overlap Hero slightly */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 -mt-32 relative z-10 mb-16">
           <div className="card p-8 text-center flex flex-col items-center justify-center">
-            <div className="w-14 h-14 bg-rose-50 rounded-full flex items-center justify-center text-[#802B3D] mb-4">
+            <div className="w-14 h-14 bg-[#FF3E9B]/10 rounded-full flex items-center justify-center text-[#FF3E9B] mb-4">
               <MapPin size={24} />
             </div>
             <h3 className="font-bold text-lg mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>Our Office</h3>
             <p className="text-gray-600 text-sm">123 Wedding Lane, Bandra West<br/>Mumbai, Maharashtra 400050</p>
           </div>
           
-          <div className="card p-8 text-center flex flex-col items-center justify-center border-t-4 border-[#D4AF37]">
-            <div className="w-14 h-14 bg-amber-50 rounded-full flex items-center justify-center text-[#D4AF37] mb-4">
+          <div className="card p-8 text-center flex flex-col items-center justify-center border-t-4 border-[#66D0BC]">
+            <div className="w-14 h-14 bg-amber-50 rounded-full flex items-center justify-center text-[#66D0BC] mb-4">
               <Phone size={24} />
             </div>
             <h3 className="font-bold text-lg mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>Call Us</h3>
@@ -52,7 +52,7 @@ export default function ContactPage() {
           </div>
           
           <div className="card p-8 text-center flex flex-col items-center justify-center">
-            <div className="w-14 h-14 bg-rose-50 rounded-full flex items-center justify-center text-[#802B3D] mb-4">
+            <div className="w-14 h-14 bg-[#FF3E9B]/10 rounded-full flex items-center justify-center text-[#FF3E9B] mb-4">
               <Mail size={24} />
             </div>
             <h3 className="font-bold text-lg mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>Email Us</h3>
@@ -66,7 +66,7 @@ export default function ContactPage() {
           
           {/* Form (55%) */}
           <div className="lg:col-span-7 card p-8 md:p-10 shadow-xl border border-gray-100">
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '2.2rem', color: '#802B3D', fontWeight: 700, mb: '0.5rem' }}>
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '2.2rem', color: '#FF3E9B', fontWeight: 700, mb: '0.5rem' }}>
               Send Us a Message
             </h2>
             <p className="text-gray-500 mb-8 text-sm">Fill out the form below and we'll get back to you within 24 hours.</p>
@@ -113,7 +113,7 @@ export default function ContactPage() {
             <div className="card overflow-hidden h-64 relative bg-gray-200 flex items-center justify-center group cursor-pointer border border-gray-200">
               <div className="absolute inset-0 opacity-40 mix-blend-multiply" style={{ backgroundImage: "url('https://maps.googleapis.com/maps/api/staticmap?center=Mumbai,India&zoom=11&size=600x300&maptype=roadmap')" }}></div>
               <div className="relative flex flex-col items-center bg-white/90 px-6 py-4 rounded-xl shadow-lg group-hover:scale-105 transition-transform">
-                <MapPin className="text-rose-500 mb-2" size={32} />
+                <MapPin className="text-[#FF3E9B] mb-2" size={32} />
                 <span className="font-bold text-gray-800">WeddingBliss HQ Mumbai</span>
               </div>
             </div>
@@ -136,14 +136,14 @@ export default function ContactPage() {
 
             {/* Business Hours details */}
             <div className="card p-6 border border-gray-100">
-              <div className="flex items-center gap-2 mb-4 text-[#802B3D]">
+              <div className="flex items-center gap-2 mb-4 text-[#FF3E9B]">
                 <Clock size={20} />
                 <h4 className="font-bold text-gray-800 text-lg">Business Hours</h4>
               </div>
               <ul className="space-y-3 text-sm text-gray-600">
                 <li className="flex justify-between items-center"><span className="font-medium">Monday - Friday</span> <span>9:00 AM - 7:00 PM</span></li>
                 <li className="flex justify-between items-center"><span className="font-medium">Saturday</span> <span>9:00 AM - 5:00 PM</span></li>
-                <li className="flex justify-between items-center"><span className="font-medium">Sunday</span> <span className="text-rose-500 font-bold uppercase text-xs">Closed</span></li>
+                <li className="flex justify-between items-center"><span className="font-medium">Sunday</span> <span className="text-[#FF3E9B] font-bold uppercase text-xs">Closed</span></li>
               </ul>
             </div>
             
@@ -158,7 +158,7 @@ export default function ContactPage() {
               <div key={i} className="card border border-gray-100 overflow-hidden cursor-pointer" onClick={() => setOpenFaq(openFaq === i ? -1 : i)}>
                 <div className="px-6 py-5 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors">
                   <h4 className="font-bold text-gray-800 pr-8">{faq.q}</h4>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${openFaq === i ? 'bg-[#802B3D] text-white' : 'bg-gray-100 text-[#802B3D]'}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${openFaq === i ? 'bg-[#FF3E9B] text-white' : 'bg-gray-100 text-[#FF3E9B]'}`}>
                     {openFaq === i ? <Minus size={18} /> : <Plus size={18} />}
                   </div>
                 </div>
