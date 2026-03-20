@@ -6,10 +6,12 @@ const session = require('express-session');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
+const path = require('path');
 
 dotenv.config();
 
 const app = express();
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
 // Session config
 app.use(session({
@@ -36,7 +38,6 @@ passport.use(new GoogleStrategy({
     callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:5000/auth/google/callback'
   },
   function(accessToken, refreshToken, profile, cb) {
-    // In a real app, find or create user in DB
     return cb(null, profile);
   }
 ));
@@ -49,17 +50,24 @@ passport.use(new FacebookStrategy({
     profileFields: ['id', 'displayName', 'emails']
   },
   function(accessToken, refreshToken, profile, cb) {
-    // In a real app, find or create user in DB
     return cb(null, profile);
   }
 ));
-app.use(cors());
+
+app.use(cors({
+  origin: FRONTEND_URL,
+  credentials: true
+}));
 app.use(express.json());
 
 // Database connection
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/weddingbliss',
 });
+
+// Serve static files from the Vite build directory
+const distPath = path.join(__dirname, '../dist');
+app.use(express.static(distPath));
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -72,20 +80,18 @@ app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: 'http://localhost:5173/login?error=true' }),
+  passport.authenticate('google', { failureRedirect: `${FRONTEND_URL}/login?error=true` }),
   function(req, res) {
-    // Successful authentication, redirect to frontend dashboard
-    res.redirect('http://localhost:5173/dashboard');
+    res.redirect(`${FRONTEND_URL}/dashboard`);
   });
 
 app.get('/auth/facebook',
   passport.authenticate('facebook', { scope: ['email'] }));
 
 app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: 'http://localhost:5173/login?error=true' }),
+  passport.authenticate('facebook', { failureRedirect: `${FRONTEND_URL}/login?error=true` }),
   function(req, res) {
-    // Successful authentication, redirect to frontend dashboard
-    res.redirect('http://localhost:5173/dashboard');
+    res.redirect(`${FRONTEND_URL}/dashboard`);
   });
 
 // --- API ROUTES ---
@@ -144,7 +150,6 @@ app.get('/api/vendors', async (req, res) => {
 app.get('/api/vendors/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    // Basic vendor info
     const vendorResult = await pool.query(`
       SELECT v.*, c.name as category_name 
       FROM vendors v
@@ -158,15 +163,12 @@ app.get('/api/vendors/:id', async (req, res) => {
 
     const vendor = vendorResult.rows[0];
 
-    // Images
     const imagesResult = await pool.query('SELECT * FROM vendor_images WHERE vendor_id = $1', [id]);
     vendor.images = imagesResult.rows;
 
-    // Packages
     const packagesResult = await pool.query('SELECT * FROM vendor_packages WHERE vendor_id = $1', [id]);
     vendor.packages = packagesResult.rows;
     
-    // Reviews
     const reviewsResult = await pool.query(`
       SELECT r.*, u.first_name, u.last_name 
       FROM reviews r
@@ -197,7 +199,7 @@ app.post('/api/enquiries', async (req, res) => {
   }
 });
 
-// 5. Get user dashboard data (Enquiries & Saved Vendors)
+// 5. Get user dashboard data
 app.get('/api/users/:id/dashboard', async (req, res) => {
   const { id } = req.params;
   try {
@@ -226,6 +228,24 @@ app.get('/api/users/:id/dashboard', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+// Catch-all route for any request that doesn't match the API or Auth routes
+// should serve index.html for React Router to handle
+app.use((req, res, next) => {
+    // If it's an API or Auth route, let it pass to the respective handlers if they exist,
+    // or eventually to a 404 if not found above.
+    if (req.path.startsWith('/api') || req.path.startsWith('/auth')) {
+      return next();
+    }
+    const indexPath = path.join(distPath, 'index.html');
+    res.sendFile(indexPath, (err) => {
+      if (err) {
+        if (!res.headersSent) {
+          res.status(500).send('Error serving frontend');
+        }
+      }
+    });
 });
 
 const PORT = process.env.PORT || 5000;
