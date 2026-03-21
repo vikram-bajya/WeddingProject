@@ -11,7 +11,12 @@ const path = require('path');
 dotenv.config();
 
 const app = express();
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+const FRONTEND_URL = (process.env.FRONTEND_URL || 'http://localhost:5173').replace(/\/+$/, '');
+const BACKEND_URL = (process.env.BACKEND_URL || `http://localhost:${process.env.PORT || 5000}`).replace(/\/+$/, '');
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || '')
+  .split(',')
+  .map((origin) => origin.trim().replace(/\/+$/, ''))
+  .filter(Boolean);
 
 // Session config
 app.use(session({
@@ -35,7 +40,7 @@ passport.deserializeUser((obj, done) => {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID || 'GOOGLE_CLIENT_ID_PLACEHOLDER',
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'GOOGLE_CLIENT_SECRET_PLACEHOLDER',
-    callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:5000/auth/google/callback'
+    callbackURL: process.env.GOOGLE_CALLBACK_URL || `${BACKEND_URL}/auth/google/callback`
   },
   function(accessToken, refreshToken, profile, cb) {
     return cb(null, profile);
@@ -46,7 +51,7 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID || 'FACEBOOK_APP_ID_PLACEHOLDER',
     clientSecret: process.env.FACEBOOK_APP_SECRET || 'FACEBOOK_APP_SECRET_PLACEHOLDER',
-    callbackURL: process.env.FACEBOOK_CALLBACK_URL || 'http://localhost:5000/auth/facebook/callback',
+    callbackURL: process.env.FACEBOOK_CALLBACK_URL || `${BACKEND_URL}/auth/facebook/callback`,
     profileFields: ['id', 'displayName', 'emails']
   },
   function(accessToken, refreshToken, profile, cb) {
@@ -55,7 +60,27 @@ passport.use(new FacebookStrategy({
 ));
 
 app.use(cors({
-  origin: FRONTEND_URL,
+  origin: (origin, callback) => {
+    const defaults = [
+      FRONTEND_URL,
+      'http://localhost:5173',
+      'http://127.0.0.1:5173',
+      'https://capable-figolla-4b90c8.netlify.app',
+    ];
+    const allowed = new Set([...defaults, ...ALLOWED_ORIGINS]);
+    const normalizedOrigin = (origin || '').replace(/\/+$/, '');
+
+    // Allow requests without Origin (server-to-server, curl, Postman)
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    if (allowed.has(normalizedOrigin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`CORS blocked for origin: ${origin}`));
+  },
   credentials: true
 }));
 app.use(express.json());
@@ -77,21 +102,47 @@ app.get('/api/health', (req, res) => {
 // --- OAUTH ROUTES ---
 
 app.get('/auth/google',
+  (req, res, next) => {
+    const returnTo = req.query.returnTo;
+    if (returnTo) {
+      req.session.oauthReturnTo = returnTo;
+    }
+    next();
+  },
   passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: `${FRONTEND_URL}/login?error=true` }),
   function(req, res) {
-    res.redirect(`${FRONTEND_URL}/dashboard`);
+    const redirectBase = (req.session.oauthReturnTo || FRONTEND_URL).replace(/\/+$/, '');
+    delete req.session.oauthReturnTo;
+    const user = req.user || {};
+    const name = encodeURIComponent(user.displayName || 'Google User');
+    const email = encodeURIComponent((user.emails && user.emails[0] && user.emails[0].value) || '');
+    const photo = encodeURIComponent((user.photos && user.photos[0] && user.photos[0].value) || '');
+    res.redirect(`${redirectBase}/login?oauth=success&name=${name}&email=${email}&photo=${photo}`);
   });
 
 app.get('/auth/facebook',
+  (req, res, next) => {
+    const returnTo = req.query.returnTo;
+    if (returnTo) {
+      req.session.oauthReturnTo = returnTo;
+    }
+    next();
+  },
   passport.authenticate('facebook', { scope: ['email'] }));
 
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: `${FRONTEND_URL}/login?error=true` }),
   function(req, res) {
-    res.redirect(`${FRONTEND_URL}/dashboard`);
+    const redirectBase = (req.session.oauthReturnTo || FRONTEND_URL).replace(/\/+$/, '');
+    delete req.session.oauthReturnTo;
+    const user = req.user || {};
+    const name = encodeURIComponent(user.displayName || 'Facebook User');
+    const email = encodeURIComponent((user.emails && user.emails[0] && user.emails[0].value) || '');
+    const photo = encodeURIComponent((user.photos && user.photos[0] && user.photos[0].value) || '');
+    res.redirect(`${redirectBase}/login?oauth=success&name=${name}&email=${email}&photo=${photo}`);
   });
 
 // --- API ROUTES ---

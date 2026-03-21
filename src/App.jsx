@@ -7,6 +7,9 @@ import DashboardPage from './pages/DashboardPage'
 import ContactPage from './pages/ContactPage'
 import EnquiryPage from './pages/EnquiryPage'
 import PortfolioPage from './pages/PortfolioPage'
+import ProfilePage from './pages/ProfilePage'
+import EditProfilePage from './pages/EditProfilePage'
+import SettingsPage from './pages/SettingsPage'
 
 // Note: Using react-router-dom for routing (TanStack Router v1 compatible pattern)
 // Replace with TanStack Router if needed per PRD
@@ -20,6 +23,9 @@ const router = createBrowserRouter([
   { path: '/contact', element: <ContactPage /> },
   { path: '/enquiry', element: <EnquiryPage /> },
   { path: '/portfolio', element: <PortfolioPage /> },
+  { path: '/profile', element: <ProfilePage /> },
+  { path: '/edit-profile', element: <EditProfilePage /> },
+  { path: '/settings', element: <SettingsPage /> },
 ])
 
 export default function App() {

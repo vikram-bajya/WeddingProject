@@ -1,22 +1,68 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Heart, Lock, Mail, Eye, EyeOff, Check, User, Phone } from 'lucide-react'
 
 export default function LoginPage() {
   const [activeTab, setActiveTab] = useState('login') // 'login' | 'register'
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState(null)
+  const [loginEmail, setLoginEmail] = useState('')
+  const [registerFirstName, setRegisterFirstName] = useState('')
+  const [registerLastName, setRegisterLastName] = useState('')
+  const [registerEmail, setRegisterEmail] = useState('')
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const apiBaseUrl = import.meta.env.VITE_API_URL || 'https://weddingsnap.onrender.com'
+
+  useEffect(() => {
+    const oauthSuccess = searchParams.get('oauth') === 'success'
+    const hasError = searchParams.get('error') === 'true'
+
+    if (oauthSuccess) {
+      const name = searchParams.get('name') || 'User'
+      const email = searchParams.get('email') || ''
+      const photo = searchParams.get('photo') || ''
+      localStorage.setItem('isLoggedIn', 'true')
+      localStorage.setItem('userProfile', JSON.stringify({ name, email, photo }))
+      window.dispatchEvent(new Event('auth-change'))
+      navigate('/enquiry', { replace: true })
+      return
+    }
+
+    if (hasError) {
+      setError('Social sign in failed. Please try again.')
+    }
+  }, [navigate, searchParams])
   
   const handleAuth = (e) => {
-    e.preventDefault();
-    setError("Invalid credentials. Please try again or create an account.");
+    e.preventDefault()
+    setError(null)
+
+    const userProfile =
+      activeTab === 'register'
+        ? {
+            name: `${registerFirstName} ${registerLastName}`.trim() || 'User',
+            email: registerEmail.trim(),
+            photo: '',
+          }
+        : {
+            name: loginEmail.trim() ? loginEmail.split('@')[0] : 'User',
+            email: loginEmail.trim(),
+            photo: '',
+          }
+
+    localStorage.setItem('isLoggedIn', 'true')
+    localStorage.setItem('userProfile', JSON.stringify(userProfile))
+    window.dispatchEvent(new Event('auth-change'))
+    navigate('/enquiry')
   }
 
   const handleSocialAuth = (provider) => {
+    const returnTo = encodeURIComponent(window.location.origin)
     if (provider === 'Google') {
-      window.location.href = 'http://localhost:5000/auth/google';
+      window.location.href = `${apiBaseUrl}/auth/google?returnTo=${returnTo}`
     } else if (provider === 'Facebook') {
-      window.location.href = 'http://localhost:5000/auth/facebook';
+      window.location.href = `${apiBaseUrl}/auth/facebook?returnTo=${returnTo}`
     }
   }
 
@@ -112,7 +158,14 @@ export default function LoginPage() {
               <form className="space-y-5" onSubmit={handleAuth}>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                  <input type="email" placeholder="Email Address" className="input-field pl-10 py-3" />
+                  <input
+                    type="email"
+                    placeholder="Email Address"
+                    className="input-field pl-10 py-3"
+                    value={loginEmail}
+                    onChange={(e) => setLoginEmail(e.target.value)}
+                    required
+                  />
                 </div>
                 
                 <div className="relative">
@@ -159,17 +212,37 @@ export default function LoginPage() {
                 <div className="flex gap-4">
                   <div className="relative flex-1">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                    <input type="text" placeholder="First Name" className="input-field pl-10 py-3" />
+                    <input
+                      type="text"
+                      placeholder="First Name"
+                      className="input-field pl-10 py-3"
+                      value={registerFirstName}
+                      onChange={(e) => setRegisterFirstName(e.target.value)}
+                      required
+                    />
                   </div>
                   <div className="relative flex-1">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                    <input type="text" placeholder="Last Name" className="input-field pl-10 py-3" />
+                    <input
+                      type="text"
+                      placeholder="Last Name"
+                      className="input-field pl-10 py-3"
+                      value={registerLastName}
+                      onChange={(e) => setRegisterLastName(e.target.value)}
+                    />
                   </div>
                 </div>
 
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                  <input type="email" placeholder="Email Address" className="input-field pl-10 py-3" />
+                  <input
+                    type="email"
+                    placeholder="Email Address"
+                    className="input-field pl-10 py-3"
+                    value={registerEmail}
+                    onChange={(e) => setRegisterEmail(e.target.value)}
+                    required
+                  />
                 </div>
 
                 <div className="relative flex gap-2">
